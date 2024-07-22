@@ -8,19 +8,6 @@ import static org.example.CONSTANT.Constants.ORDER_ENDPOINT;
 
 public class CreateOrder {
 
-    public Response getIngridients() {
-        return given()
-                .when()
-                .get("ingredients");
-    }
-
-    public Response createOrder(Order order) {
-        return  given(BaseTest.spec)
-                .body(order)
-                .when()
-                .post(ORDER_ENDPOINT);
-    }
-
     public static Response createOrderWithAuthorization(Order order, String token) {
         return given()
                 .header("Authorization", token)
