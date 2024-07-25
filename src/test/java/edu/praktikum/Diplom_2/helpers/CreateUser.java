@@ -1,6 +1,9 @@
-package edu.praktikum.Diplom_2;
+package edu.praktikum.Diplom_2.helpers;
 
 import com.github.javafaker.Faker;
+import edu.praktikum.Diplom_2.tests.BaseTest;
+import edu.praktikum.Diplom_2.utils.RestAssuredUtil;
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import models.User;
 
@@ -12,8 +15,7 @@ public class CreateUser {
     public static String randomName;
     private static Faker faker = new Faker();
 
-    // Метод для генерации случайног
-    // о email
+    // Метод для генерации случайного email
     public static String randomEmail() {
         return faker.internet().emailAddress();
     }
@@ -29,7 +31,7 @@ public class CreateUser {
     }
 
     public static Response create(User user) {
-        return given(BaseTest.spec)
+        return given(RestAssuredUtil.setUp())
                 .body(user)
                 .when()
                 .post(CREATE_ENDPOINT);

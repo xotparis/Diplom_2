@@ -1,7 +1,10 @@
-package edu.praktikum.Diplom_2;
+package edu.praktikum.Diplom_2.tests;
 
+import edu.praktikum.Diplom_2.helpers.CreateUser;
+import edu.praktikum.Diplom_2.helpers.LoginUser;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
+import io.restassured.response.Response;
 import models.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,10 +25,13 @@ public class LoginUserTests extends BaseTest {
         invalidEmailUser = new User("wrong" + validUser.getEmail(), validUser.getPassword(), validUser.getName());
         invalidPasswordUser = new User(validUser.getEmail(), "wrong" + validUser.getPassword(), validUser.getName());
 
-        CreateUser.create(validUser)
+        Response response = CreateUser.create(validUser)
                 .then()
                 .assertThat()
-                .statusCode(SC_OK);
+                .statusCode(SC_OK)
+                .extract()
+                .response();
+        accessToken = response.path("accessToken");
     }
 
     @Test

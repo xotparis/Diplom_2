@@ -1,31 +1,26 @@
-package edu.praktikum.Diplom_2;
+package edu.praktikum.Diplom_2.tests;
 
-import io.restassured.RestAssured;
-import io.restassured.specification.RequestSpecification;
-import org.junit.AfterClass;
+import edu.praktikum.Diplom_2.utils.RestAssuredUtil;
+import org.junit.After;
 import org.junit.BeforeClass;
 
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.SC_ACCEPTED;
-import static org.example.CONSTANT.Constants.BASE_URL;
 import static org.example.CONSTANT.Constants.DELETE_ENDPOINT;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class BaseTest {
 
-    protected static RequestSpecification spec;
-    protected static RequestSpecification accessToken;
+    protected String accessToken;
 
     @BeforeClass
     public static void setUp() {
-        RestAssured.baseURI = BASE_URL;
-        spec = given()
-                .header("Content-Type", "application/json");
+        RestAssuredUtil.setUp();
     }
 
 
-    @AfterClass
-    public static void tearDown() {
+    @After
+    public void tearDown() {
 
         if (accessToken != null) {
 
@@ -38,6 +33,7 @@ public class BaseTest {
                     .statusCode(SC_ACCEPTED)
                     .body("success", equalTo(true))
                     .body("message", equalTo("User successfully removed"));
+
         }
     }
 }

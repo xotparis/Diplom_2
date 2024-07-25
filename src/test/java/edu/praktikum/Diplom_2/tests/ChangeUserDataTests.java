@@ -1,5 +1,6 @@
-package edu.praktikum.Diplom_2;
+package edu.praktikum.Diplom_2.tests;
 
+import edu.praktikum.Diplom_2.helpers.CreateUser;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
@@ -12,7 +13,7 @@ import static org.apache.http.HttpStatus.*;
 import static org.example.CONSTANT.Constants.UPDATE_ENDPOINT;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class ChangeUserDataTests extends BaseTest{
+public class ChangeUserDataTests extends BaseTest {
     private User validUser;
     private User updatedUser;
     private String accessToken;
@@ -22,7 +23,6 @@ public class ChangeUserDataTests extends BaseTest{
     @Before
     public void initialize() {
         validUser = new User(CreateUser.randomEmail(), CreateUser.randomPassword(), CreateUser.randomName());
-
         // Создать пользователя и получить токен доступа
         Response createResponse = CreateUser.create(validUser)
                 .then()
@@ -30,7 +30,6 @@ public class ChangeUserDataTests extends BaseTest{
                 .statusCode(SC_OK)
                 .extract()
                 .response();
-
         accessToken = createResponse.jsonPath().getString("accessToken");
 
         newEmail = CreateUser.randomEmail();
@@ -55,7 +54,6 @@ public class ChangeUserDataTests extends BaseTest{
                 .extract()
                 .response();
 
-
         // Проверить, что данные были успешно изменены
         updateResponse
                 .then()
@@ -63,7 +61,6 @@ public class ChangeUserDataTests extends BaseTest{
                 .body("success", equalTo(true))
                 .body("user.email", equalTo(newEmail))
                 .body("user.name", equalTo(newName));
-
     }
 
     @Test

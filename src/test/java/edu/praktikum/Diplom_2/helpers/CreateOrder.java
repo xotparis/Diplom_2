@@ -1,5 +1,6 @@
-package edu.praktikum.Diplom_2;
+package edu.praktikum.Diplom_2.helpers;
 
+import edu.praktikum.Diplom_2.utils.RestAssuredUtil;
 import io.restassured.response.Response;
 import models.Order;
 
@@ -9,7 +10,7 @@ import static org.example.CONSTANT.Constants.ORDER_ENDPOINT;
 public class CreateOrder {
 
     public static Response createOrderWithAuthorization(Order order, String token) {
-        return given()
+        return given(RestAssuredUtil.setUp())
                 .header("Authorization", token)
                 .contentType("application/json")
                 .body(order)
@@ -18,7 +19,7 @@ public class CreateOrder {
     }
 
     public static Response getUserOrders(String token) {
-        return given()
+        return given(RestAssuredUtil.setUp())
                 .header("Authorization", token)
                 .contentType("application/json")
                 .when()

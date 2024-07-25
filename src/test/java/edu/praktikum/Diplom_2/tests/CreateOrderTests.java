@@ -1,5 +1,6 @@
-package edu.praktikum.Diplom_2;
+package edu.praktikum.Diplom_2.tests;
 
+import edu.praktikum.Diplom_2.helpers.CreateUser;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
@@ -9,7 +10,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static edu.praktikum.Diplom_2.CreateOrder.createOrderWithAuthorization;
+import static edu.praktikum.Diplom_2.helpers.CreateOrder.createOrderWithAuthorization;
 import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -17,7 +18,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 public class CreateOrderTests extends BaseTest {
     private User validUser;
 
-    Order order = new Order(List.of("61c0c5a71d1f82001bdaaa78"));
+    Order order = new Order(List.of("61c0c5a71d1f82001bdaaa6d"));
     Order incorrectOrder = new Order(List.of("123456789"));
     Order emptyOrder = new Order(List.of());
 
@@ -47,7 +48,10 @@ public class CreateOrderTests extends BaseTest {
                 .statusCode(SC_OK)
                 .and()
                 .body("success", equalTo(true))
-                .body("order.number", notNullValue());
+                .body("order.number", notNullValue())
+                .extract()
+                .response();
+        accessToken = response.path("accessToken");
     }
 
     @Test
@@ -67,7 +71,7 @@ public class CreateOrderTests extends BaseTest {
     @Test
     @DisplayName("Create order without ingredients")
     @Description("Negative case: Code 400")
-    public void createOrderWithoutIngridientsTest() {
+    public void createOrderWithoutIngredientsTest() {
         Response response = createOrderWithAuthorization(emptyOrder, getAuthToken());
 
         response
@@ -79,7 +83,7 @@ public class CreateOrderTests extends BaseTest {
     @Test
     @DisplayName("Create order without authorization and incorrect ingredients")
     @Description("Negative case: Code 500")
-    public void createOrderWithIncorrectIngridientsTest() {
+    public void createOrderWithIncorrectIngredientsTest() {
         Response response = createOrderWithAuthorization(incorrectOrder, getAuthToken());
 
         response

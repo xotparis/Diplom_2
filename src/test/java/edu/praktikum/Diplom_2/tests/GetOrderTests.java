@@ -1,5 +1,7 @@
-package edu.praktikum.Diplom_2;
+package edu.praktikum.Diplom_2.tests;
 
+import edu.praktikum.Diplom_2.helpers.CreateOrder;
+import edu.praktikum.Diplom_2.helpers.CreateUser;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
@@ -11,7 +13,7 @@ import static org.apache.http.HttpStatus.SC_OK;
 import static org.apache.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class GetOrderTests extends BaseTest{
+public class GetOrderTests extends BaseTest {
     private User validUser;
 
     private String getAuthToken() {
@@ -26,7 +28,6 @@ public class GetOrderTests extends BaseTest{
                 .response();
 
         return createResponse.jsonPath().getString("accessToken");
-
     }
 
     @Test
@@ -39,7 +40,10 @@ public class GetOrderTests extends BaseTest{
                 .then()
                 .statusCode(SC_OK)
                 .and()
-                .body("success", equalTo(true));
+                .body("success", equalTo(true))
+                .extract()
+                .response();
+        accessToken = response.path("accessToken");
     }
 
     @Test
