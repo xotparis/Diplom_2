@@ -1,6 +1,6 @@
-package edu.praktikum.Diplom_2.helpers;
+package edu.praktikum.diplom2.helpers;
 
-import edu.praktikum.Diplom_2.utils.RestAssuredUtil;
+import edu.praktikum.diplom2.utils.RestAssuredUtil;
 import io.restassured.response.Response;
 import models.Order;
 

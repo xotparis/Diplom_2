@@ -1,9 +1,7 @@
-package edu.praktikum.Diplom_2.helpers;
+package edu.praktikum.diplom2.helpers;
 
 import com.github.javafaker.Faker;
-import edu.praktikum.Diplom_2.tests.BaseTest;
-import edu.praktikum.Diplom_2.utils.RestAssuredUtil;
-import io.restassured.RestAssured;
+import edu.praktikum.diplom2.utils.RestAssuredUtil;
 import io.restassured.response.Response;
 import models.User;
 

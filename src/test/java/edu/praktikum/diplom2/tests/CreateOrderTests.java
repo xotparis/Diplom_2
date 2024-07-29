@@ -1,6 +1,6 @@
-package edu.praktikum.Diplom_2.tests;
+package edu.praktikum.diplom2.tests;
 
-import edu.praktikum.Diplom_2.helpers.CreateUser;
+import edu.praktikum.diplom2.helpers.CreateUser;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
@@ -10,7 +10,9 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static edu.praktikum.Diplom_2.helpers.CreateOrder.createOrderWithAuthorization;
+import static edu.praktikum.diplom2.helpers.CreateOrder.createOrderWithAuthorization;
+import static edu.praktikum.diplom2.helpers.GetIngredients.getIngredients;
+import static edu.praktikum.diplom2.helpers.GetIngredients.getValidIngredientIds;
 import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -18,7 +20,13 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 public class CreateOrderTests extends BaseTest {
     private User validUser;
 
-    Order order = new Order(List.of("61c0c5a71d1f82001bdaaa6d"));
+    private Order getValidOrder() {
+        Response response = getIngredients();
+        List<String> ingredientIds = getValidIngredientIds(response);
+        return new Order(ingredientIds);
+    }
+
+    Order correctOrder = getValidOrder();
     Order incorrectOrder = new Order(List.of("123456789"));
     Order emptyOrder = new Order(List.of());
 
@@ -41,7 +49,7 @@ public class CreateOrderTests extends BaseTest {
     @DisplayName("Create order with authorization and ingredients")
     @Description("Positive case: Code 200")
     public void createOrderWithAuthorizationTest() {
-        Response response = createOrderWithAuthorization(order, getAuthToken());
+        Response response = createOrderWithAuthorization(correctOrder, getAuthToken());
 
         response
                 .then()
@@ -58,7 +66,7 @@ public class CreateOrderTests extends BaseTest {
     @DisplayName("Create order without authorization")
     @Description("Positive case: Code 200")
     public void createOrderWithoutAuthorizationTest() {
-        Response response = createOrderWithAuthorization(order, "");
+        Response response = createOrderWithAuthorization(correctOrder, "");
 
         response
                 .then()

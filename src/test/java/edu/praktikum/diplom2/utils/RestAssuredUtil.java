@@ -1,26 +1,25 @@
-package edu.praktikum.Diplom_2.tests;
+package edu.praktikum.diplom2.utils;
 
-import edu.praktikum.Diplom_2.utils.RestAssuredUtil;
-import org.junit.After;
-import org.junit.BeforeClass;
+import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.SC_ACCEPTED;
+import static org.example.CONSTANT.Constants.BASE_URL;
 import static org.example.CONSTANT.Constants.DELETE_ENDPOINT;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class BaseTest {
+public final class RestAssuredUtil {
 
-    protected String accessToken;
 
-    @BeforeClass
-    public static void setUp() {
-        RestAssuredUtil.setUp();
+    public static RequestSpecification setUp() {
+        RestAssured.baseURI = BASE_URL;
+        return given()
+                .header("Content-Type", "application/json");
+
     }
 
-
-    @After
-    public void tearDown() {
+    public static void tearDown(String accessToken) {
 
         if (accessToken != null) {
 
@@ -37,4 +36,3 @@ public class BaseTest {
         }
     }
 }
-

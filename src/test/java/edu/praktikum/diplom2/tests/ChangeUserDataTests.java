@@ -1,6 +1,6 @@
-package edu.praktikum.Diplom_2.tests;
+package edu.praktikum.diplom2.tests;
 
-import edu.praktikum.Diplom_2.helpers.CreateUser;
+import edu.praktikum.diplom2.helpers.CreateUser;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
@@ -16,7 +16,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 public class ChangeUserDataTests extends BaseTest {
     private User validUser;
     private User updatedUser;
-    private String accessToken;
     private String newEmail;
     private String newName;
 
