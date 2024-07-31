@@ -8,9 +8,11 @@ import models.User;
 import org.junit.Before;
 import org.junit.Test;
 
+import static edu.praktikum.diplom2.helpers.ChangeUserData.changeUserDataWithAuthorization;
+import static edu.praktikum.diplom2.helpers.ChangeUserData.changeUserDataWithoutAuthorization;
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.*;
-import static org.example.CONSTANT.Constants.UPDATE_ENDPOINT;
+import static CONSTANTS.Constants.UPDATE_ENDPOINT;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ChangeUserDataTests extends BaseTest {
@@ -40,19 +42,7 @@ public class ChangeUserDataTests extends BaseTest {
     @DisplayName("Change user data with authorization")
     @Description("Positive case: Code 200")
     public void changeUserData() {
-
-        Response updateResponse = given()
-                .header("Content-Type", "application/json")
-                .header("Authorization", accessToken)
-                .body(updatedUser)
-                .when()
-                .patch(UPDATE_ENDPOINT)
-                .then()
-                .assertThat()
-                .statusCode(SC_OK)
-                .extract()
-                .response();
-
+        Response updateResponse = changeUserDataWithAuthorization(updatedUser, accessToken);
         // Проверить, что данные были успешно изменены
         updateResponse
                 .then()
@@ -66,15 +56,13 @@ public class ChangeUserDataTests extends BaseTest {
     @DisplayName("Change user data without authorization")
     @Description("Negative case: Code 401")
     public void changeUserDataWithoutToken() {
-        given()
-                .header("Content-Type", "application/json")
-                .body(updatedUser)
-                .when()
-                .patch(UPDATE_ENDPOINT)
+        Response response = changeUserDataWithoutAuthorization(updatedUser);
+
+        response
                 .then()
                 .assertThat()
                 .statusCode(SC_UNAUTHORIZED)
                 .body("message", equalTo("You should be authorised"));
-    }
 
+    }
 }

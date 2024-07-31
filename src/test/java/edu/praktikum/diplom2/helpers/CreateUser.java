@@ -6,7 +6,7 @@ import io.restassured.response.Response;
 import models.User;
 
 import static io.restassured.RestAssured.given;
-import static org.example.CONSTANT.Constants.CREATE_ENDPOINT;
+import static CONSTANTS.Constants.CREATE_ENDPOINT;
 
 public class CreateUser {
     public static String randomPassword;

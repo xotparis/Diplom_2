@@ -5,8 +5,8 @@ import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.SC_ACCEPTED;
-import static org.example.CONSTANT.Constants.BASE_URL;
-import static org.example.CONSTANT.Constants.DELETE_ENDPOINT;
+import static CONSTANTS.Constants.BASE_URL;
+import static CONSTANTS.Constants.DELETE_ENDPOINT;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public final class RestAssuredUtil {

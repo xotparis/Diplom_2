@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 import models.User;
 
 import static io.restassured.RestAssured.given;
-import static org.example.CONSTANT.Constants.LOGIN_ENDPOINT;
+import static CONSTANTS.Constants.LOGIN_ENDPOINT;
 
 public class LoginUser {
     public static Response login(User user) {

@@ -1,7 +1,6 @@
 package edu.praktikum.diplom2.helpers;
 
 import io.restassured.response.Response;
-import models.Order;
 
 import java.util.List;
 import java.util.Map;
@@ -9,7 +8,7 @@ import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.SC_OK;
-import static org.example.CONSTANT.Constants.GET_INGREDIENTS_ENDPOINT;
+import static CONSTANTS.Constants.GET_INGREDIENTS_ENDPOINT;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class GetIngredients {

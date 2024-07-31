@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 import models.Order;
 
 import static io.restassured.RestAssured.given;
-import static org.example.CONSTANT.Constants.ORDER_ENDPOINT;
+import static CONSTANTS.Constants.ORDER_ENDPOINT;
 
 public class CreateOrder {
 
